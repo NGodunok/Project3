@@ -102,16 +102,26 @@ def main():
     for key, value in functions.items():
         print(f"{key}. {value}")
     
-    function_choice = input("Enter your choice: ")
+    function_choice = input("Enter your choice (1-7): ").strip()
     function = functions.get(function_choice)
     if not function:
-        print("Invalid choice. Exiting.")
+        print("Invalid choice. Please restart and enter a valid integer between 1 and 7.")
         return
     
     interval = None
+
+    #checking for valid interval selection 
+
     if function == "TIME_SERIES_INTRADAY":
-        interval = input("Enter interval (1min, 5min, 15min, 30min, 60min): ")
-    
+        valid_intervals = ["1min", "5min", "15min", "30min", "60min"]
+
+        while True:
+            interval = input("Enter interval (1min, 5min, 15min, 30min, 60min): ")
+            if interval in valid_intervals:
+                break
+            else: 
+                print("Invalid interval. Please choose from 1min, 5min, 15min, 30min, or 60min.")
+
     while True:
         start_date = input("Enter start date (YYYY-MM-DD): ")
         end_date = input("Enter end date (YYYY-MM-DD): ")
@@ -130,6 +140,14 @@ def main():
     if df is not None:
         plot_stock_data(df, start_date, end_date, chart_type, symbol)
 
+
 if __name__ == "__main__":
-    main()
+
+#soft-crash error handling implementation
+
+    try: 
+        main()
+    
+    except Exception as e:
+        print("An error occured: {e}")
 
