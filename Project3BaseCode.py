@@ -17,21 +17,38 @@ def get_stock_data(symbol, function, interval=None):
     if interval:
         params["interval"] = interval
     
-    response = requests.get(BASE_URL, params=params)
-    if response.status_code != 200:
-        print("Error fetching data from Alpha Vantage API.")
-        return None
-    data = response.json()
+    try:
+        response = requests.get(BASE_URL, params=params)
+        response.raise_for_status()
+        data = response.json()
+
+        #checking for API limit or API error
+        if "Note" in data:
+            print("API call limit reached. Please wait and try again later.")
+            return None
+        
+        if "Error Message" in data:
+            print("Error: Invalid stock symbol or function. Please check input")
+            return None
+        
+        time_series_key = next((key for key in data.keys() if 'Time Series' in key), None)
+        if not time_series_key:
+            print("Unexpected API response or response format. No time series data found.")
+            return None
     
-    time_series_key = next((key for key in data.keys() if 'Time Series' in key), None)
-    if not time_series_key:
-        print("Invalid response from API. Check stock symbol and function.")
+        df = pd.DataFrame.from_dict(data[time_series_key], orient='index')
+        df.index = pd.to_datetime(df.index)
+        df = df.apply(pd.to_numeric)
+        return df
+    
+    except requests.exceptions.RequestException as e:
+        print(f"Networking error: {e}")
         return None
     
-    df = pd.DataFrame.from_dict(data[time_series_key], orient='index')
-    df.index = pd.to_datetime(df.index)
-    df = df.apply(pd.to_numeric)
-    return df
+    except ValueError:
+        print("Error occured while attempting to parse API response. Please try again.")
+        return None
+
 
 def plot_stock_data(df, start_date, end_date, chart_type, symbol):
     df = df.sort_index()
