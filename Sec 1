@@ -1,0 +1,58 @@
+## Section 1: Project Breakdown, Work Division, Communication Plan
+
+### Project Breakdown
+
+This project is a Python app that shows stock data charts using the [Alpha Vantage API](https://www.alphavantage.co/documentation/). The user can:
+
+- Type a stock symbol (like AAPL or MSFT)
+- Pick a chart type (line or bar)
+- Choose a time series (like daily, weekly, monthly, intraday)
+- Pick a start and end date
+- See a graph in their browser
+
+The API gives us historical stock data (up to 20 years). We filter the data by date and show it using `matplotlib`. The main goal was to build a working app and also learn to use **Jira for Scrum** and **GitHub for code**.
+
+We planned the project over 3 weeks and split it into sprints:
+
+- **Sprint 1**: Planning and setup – we created the GitHub repo, researched the Alpha Vantage API, created initial Jira tasks, and planned our use case design.
+- **Sprint 2**: Development – we wrote the base Python code, added user input, handled errors, connected to the API, and started testing.
+- **Sprint 3**: Testing and polish – we focused on formatting the graph output, cleaning up the user interface, writing documentation, and preparing the final report and screenshots.
+
+Each sprint had specific goals, and we used Jira to manage progress and update task statuses daily.
+
+
+### Work Division and Planning
+
+We used [Jira](https://www.atlassian.com/software/jira) to keep track of everything we needed to do. We made tasks and moved them across our Scrum board like this:
+
+- To Do  
+- In Progress  
+- In Review  
+- Done
+
+Some of our main tasks in Jira were:
+
+- Write use case descriptions  
+- Create the use case diagram  
+- Add example code from Alpha Vantage  
+- Create the GitHub repo  
+- Handle errors for wrong input, connection issues, and parsing  
+- Build the Python code  
+- Break big to-do items into smaller ones  
+- Format the output graph  
+- Write the report and divide it into sections  
+- Final submission of report and GitHub repo
+
+Everyone helped on different parts of the project and we updated our progress in Jira often.
+
+
+### Communication Plan
+
+We used **Discord** to talk and plan. We:
+
+- Posted updates every day  
+- Had voice calls to plan the next steps  
+- Shared screenshots and code problems  
+
+Jira helped us stay organized, and GitHub made it easy to work on code as a team with branches and commits. It helped us keep everything in one place and work smoothly together.
+
